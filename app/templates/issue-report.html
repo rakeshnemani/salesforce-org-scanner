@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Salesforce Org Assessment Report</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 40px;
+            }
+            h1 {
+                text-align: center;
+                color: #2c3e50;
+            }
+            .High {
+                color: #c0392b;
+                font-weight: bold;
+            }
+            .Medium {
+                color:rgb(239, 188, 105);
+            }
+            .Low {
+                color: #2980b9;
+            }
+            .componentsList {
+                list-style-type: none;
+            }
+            table {
+                max-width: 90%;
+                border-collapse: collapse;
+                display: block;
+                margin-top: 30px;
+                wordwrap: break-word;
+            }
+            th, td {
+                padding: 12px;
+                border: 1px solid #ddd;
+                text-align: left;
+            }
+            th {
+                background-color: #f4f6f8;
+            }
+            tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+        </style>
+        <script>
+            const d = new Date();
+            document.getElementById("currentDateTime").innerHTML = "Report Date: "+d;
+        </script>
+    </head>
+    <body>
+        <img src="salesforce-auth/resources/OrgAssessmentLogo.png" 
+            alt="Salesforce Org Assessment" style="width: 100px; height: auto; display: block; margin: 0 auto;"></img>
+        <h1>Salesforce Org Assessment Report</h1>
+        <p>Org Name: ---</p>
+        <p id="currentDateTime"></p>
+        <p>Summary Statistics: ---</p>
+
+
+        {{#each issues}}
+            <p>Category: {{this.category}}</p>
+            <p class="{{this.priority}}">Priority: {{this.priority}}</p>
+            <p>Description: {{this.description}}</p>
+            <p>Components: 
+                <ol style="componentsList"> 
+                    {{#each this.components}}
+                    <li> {{this}} </li>
+                    {{/each}} 
+                </ol>
+            </p>
+        {{/each}}
+
+        <!-- table of contents -->
+        <h2>Below fields are being updated from more than one metadata component</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Object Name</th>
+                    <th>Field Name</th>
+                    <th>Metadata Components</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each fieldUpdates}}
+                    {{#each this}}
+                        <tr>
+                            <td>{{@../key}}</td>
+                            <td>{{@key}}</td>
+                            <td>
+                                <ol>
+                                    {{#each metadataNames}}
+                                        <li>{{this}}</li>
+                                    {{/each}}
+                                </ol>
+                            </td>
+                        </tr>
+                    {{/each}}
+                {{/each}}
+            </tbody>
+        </table>
+    </body>
+</html>
