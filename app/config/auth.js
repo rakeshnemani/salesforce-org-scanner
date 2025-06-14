@@ -71,7 +71,7 @@ router.get('/callback', async (req, res) => {
         );
 
         // Store tokens in the user's session
-        req.session.tokens = response.data;
+        req.session.tokens = res.data;
 
         // Save tokens to tokens.json
         fs.writeFileSync("tokens.json", JSON.stringify(tokenResponse.data, null, 2));
