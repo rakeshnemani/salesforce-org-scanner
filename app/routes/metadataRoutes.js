@@ -17,7 +17,7 @@ router.get('/analyze/customizations', async (req, res) => {
             res.write(`data: ${JSON.stringify(data, null, 2)}\n\n`);
         };
         // Retrieve metadata and add to responseData
-        const { allMetadataItemsByType, allFieldUpdates } = await getSalesforceMetadata(responseData, sendUpdate);
+        const { allMetadataItemsByType, allFieldUpdates } = await getSalesforceMetadata(req, responseData, sendUpdate);
         //const chatGPTAnalysisResults = await analyzeFieldUpdatesWithChatGPT(responseData, sendUpdate, allFieldUpdates);
         res.end();
     } catch (error) {

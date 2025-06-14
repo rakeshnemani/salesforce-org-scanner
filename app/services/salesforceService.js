@@ -18,8 +18,8 @@ const getMetadataComponentDependency = async () => {
 };
 
 // Fetch Salesforce Metadata
-const getSalesforceMetadata = async (responseData, sendUpdate) => {
-  const allMetadataItems = await retrieveMetadata(responseData, sendUpdate);
+const getSalesforceMetadata = async (req, responseData, sendUpdate) => {
+  const allMetadataItems = await retrieveMetadata(req, responseData, sendUpdate);
   let allMetadataItemsByType = [];
   allMetadataItems.forEach((metadataItem) => {
     allMetadataItemsByType = allMetadataItems.reduce((acc, metadataItem) => {

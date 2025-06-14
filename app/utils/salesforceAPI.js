@@ -8,8 +8,8 @@ const AdmZip = require("adm-zip");
 //const ACCESS_TOKEN = tokens.access_token;
 //const INSTANCE_URL = tokens.instance_url;
 
-const ACCESS_TOKEN = req.session.tokens.access_token;
-const INSTANCE_URL = req.session.tokens.instance_url;
+let ACCESS_TOKEN;
+let INSTANCE_URL;
 
 const SALESFORCE_METADATA_URL = `${INSTANCE_URL}/services/Soap/m/60.0`;
 const SALESFORCE_API_URL = `${INSTANCE_URL}/services/data/v60.0/tooling/query`;
@@ -83,7 +83,12 @@ const generateCheckRequestStatusXML = (retrieveId) => {
   return checkRequestStatusXML;
 };
 
-const retrieveMetadata = async (responseData, sendUpdate) => {
+const retrieveMetadata = async (req, responseData, sendUpdate) => {
+  if (!req.session.tokens) {
+    throw new Error("Not authenticated.");
+  }
+  ACCESS_TOKEN = req.session.tokens.access_token;
+  INSTANCE_URL = req.session.tokens.instance_url;
   try {
     // Step 1: Request Metadata Retrieval
     const packageXML = generatePackageXML();
