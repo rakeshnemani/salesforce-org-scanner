@@ -48,9 +48,9 @@ router.get('/callback', async (req, res) => {
         return res.status(400).send("Missing authorization code");
     }
 
-    if (!req.session.codeVerifier) {
+    /*if (!req.session.codeVerifier) {
         return res.status(400).send("PKCE code verifier not found.");
-    }
+    }*/
 
     try {
         const tokenResponse = await axios.post(
