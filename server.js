@@ -29,6 +29,7 @@ app.use(
     cookie: { 
       secure: true // <- Heroku is HTTPS
     },
+    store: new RedisStore({ client: redisClient })
   })
 );
 
