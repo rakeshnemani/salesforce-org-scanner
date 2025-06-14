@@ -44,12 +44,13 @@ router.get('/salesforce', (req, res) => {
 // Callback route to exchange code for access token
 router.get('/callback', async (req, res) => {
     const authCode = req.query.code;
-
     if (!authCode) {
         return res.status(400).send("Missing authorization code");
     }
 
-    if (!req.session.codeVerifier) {
+    // Retrieve code verifier from the user's session
+    const codeVerifier = req.session.codeVerifier;
+    if (!codeVerifier) {
         return res.status(400).send("PKCE code verifier not found.");
     }
 
