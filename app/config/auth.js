@@ -23,12 +23,13 @@ const generateCodeChallenge = (codeVerifier) => {
     return crypto.createHash("sha256").update(codeVerifier).digest("base64url");
 };
 
-// Store PKCE values (should be stored per session in production)
-let codeVerifier = generateCodeVerifier();
-let codeChallenge = generateCodeChallenge(codeVerifier);
-
 // Route to start OAuth with PKCE
 router.get('/salesforce', (req, res) => {
+    // Store PKCE values (should be stored per session in production)
+    let codeVerifier = generateCodeVerifier();
+    let codeChallenge = generateCodeChallenge(codeVerifier);
+
+    req.session.codeVerifier = codeVerifier;
     const params = querystring.stringify({
         response_type: "code",
         client_id: process.env.SALESFORCE_CLIENT_ID,
@@ -48,9 +49,9 @@ router.get('/callback', async (req, res) => {
         return res.status(400).send("Missing authorization code");
     }
 
-    /*if (!req.session.codeVerifier) {
+    if (!req.session.codeVerifier) {
         return res.status(400).send("PKCE code verifier not found.");
-    }*/
+    }
 
     try {
         const tokenResponse = await axios.post(
