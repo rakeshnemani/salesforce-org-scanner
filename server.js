@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const axios = require("axios");
 const expressSession = require("express-session");
-const RedisStore = require("connect-redis").default;
+const RedisStore = require("connect-redis");
 const createClient = require("redis");
 
 const metadataRoutes = require('./app/routes/metadataRoutes');
