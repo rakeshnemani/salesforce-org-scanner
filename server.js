@@ -15,6 +15,12 @@ app.use((req, res, next) => {
   next();
 });
 
+// check health of ec2
+app.get('/', (req, res) => {
+  res.status(200).send('OK'); // or whatever health response you want
+});
+
+
 //Used for authentication
 app.use('/auth', authConfig);
 
