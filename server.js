@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const axios = require("axios");
+const expressSession = require("express-session");
 
 const metadataRoutes = require('./app/routes/metadataRoutes');
 const authConfig = require('./app/config/auth');

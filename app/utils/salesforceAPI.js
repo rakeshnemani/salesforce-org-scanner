@@ -8,13 +8,12 @@ const AdmZip = require("adm-zip");
 //const ACCESS_TOKEN = tokens.access_token;
 //const INSTANCE_URL = tokens.instance_url;
 
-let ACCESS_TOKEN;
-let INSTANCE_URL;
+let ACCESS_TOKEN="";
+let INSTANCE_URL="";
 
-const SALESFORCE_METADATA_URL = `${INSTANCE_URL}/services/Soap/m/60.0`;
-const SALESFORCE_API_URL = `${INSTANCE_URL}/services/data/v60.0/tooling/query`;
-const SALESFORCE_REST_API_URL = `${INSTANCE_URL}/services/data/v60.0/composite`;
-
+let SALESFORCE_METADATA_URL = "";
+let SALESFORCE_API_URL = "";
+let SALESFORCE_REST_API_URL = "";
 
 // Generic function to query Salesforce
 const querySalesforce = async (query) => {
@@ -89,6 +88,10 @@ const retrieveMetadata = async (req, responseData, sendUpdate) => {
   }
   ACCESS_TOKEN = req.session.tokens.access_token;
   INSTANCE_URL = req.session.tokens.instance_url;
+
+  SALESFORCE_METADATA_URL = `${INSTANCE_URL}/services/Soap/m/60.0`;
+  SALESFORCE_API_URL = `${INSTANCE_URL}/services/data/v60.0/tooling/query`;
+  SALESFORCE_REST_API_URL = `${INSTANCE_URL}/services/data/v60.0/composite`;
   try {
     // Step 1: Request Metadata Retrieval
     const packageXML = generatePackageXML();
