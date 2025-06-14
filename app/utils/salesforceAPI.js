@@ -84,7 +84,7 @@ const generateCheckRequestStatusXML = (retrieveId) => {
 
 const retrieveMetadata = async (req, responseData, sendUpdate) => {
   if (!req.session.tokens) {
-    throw new Error("Not authenticated.");
+    throw new Error("In Salesforce API. Not authenticated.");
   }
   ACCESS_TOKEN = req.session.tokens.access_token;
   INSTANCE_URL = req.session.tokens.instance_url;
