@@ -8,6 +8,15 @@ const authConfig = require('./app/config/auth');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Sessions (keep this SECRET and use a strong password!)
+app.use(
+  expressSession({ 
+    secret: process.env.SESSION_SECRET || "supersecret",
+    resave: false,
+    saveUninitialized: false
+  })
+);
+
 app.use((req, res, next) => {
   if (req.headers['x-forwarded-proto'] !== 'https') {
     return res.redirect('https://' + req.headers.host + req.url);

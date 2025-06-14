@@ -4,9 +4,13 @@ const { parseStringPromise } = require("xml2js");
 const AdmZip = require("adm-zip");
 
 // Load tokens
-const tokens = JSON.parse(fs.readFileSync("tokens.json", "utf-8"));
-const ACCESS_TOKEN = tokens.access_token;
-const INSTANCE_URL = tokens.instance_url;
+//const tokens = JSON.parse(fs.readFileSync("tokens.json", "utf-8"));
+//const ACCESS_TOKEN = tokens.access_token;
+//const INSTANCE_URL = tokens.instance_url;
+
+const ACCESS_TOKEN = req.session.tokens.access_token;
+const INSTANCE_URL = req.session.tokens.instance_url;
+
 const SALESFORCE_METADATA_URL = `${INSTANCE_URL}/services/Soap/m/60.0`;
 const SALESFORCE_API_URL = `${INSTANCE_URL}/services/data/v60.0/tooling/query`;
 const SALESFORCE_REST_API_URL = `${INSTANCE_URL}/services/data/v60.0/composite`;

@@ -48,6 +48,10 @@ router.get('/callback', async (req, res) => {
         return res.status(400).send("Missing authorization code");
     }
 
+    if (!req.session.codeVerifier) {
+        return res.status(400).send("PKCE code verifier not found.");
+    }
+
     try {
         const tokenResponse = await axios.post(
             TOKEN_URL,
@@ -64,6 +68,9 @@ router.get('/callback', async (req, res) => {
             }
         );
 
+        // Store tokens in the user's session
+        req.session.tokens = response.data;
+
         // Save tokens to tokens.json
         fs.writeFileSync("tokens.json", JSON.stringify(tokenResponse.data, null, 2));
         res.send("Authentication Successful! Tokens saved.");
@@ -71,6 +78,15 @@ router.get('/callback', async (req, res) => {
         console.error("Error exchanging code for token:", error.response?.data || error.message);
         res.status(500).send("Authentication failed");
     }
+});
+
+// Provide route to retrieve a valid access_token (for subsequent API requests)
+router.get('/access-token', (req, res) => {
+    if (!req.session.tokens) {
+        return res.status(404).send("Not authenticated.");
+    }
+
+    res.json(req.session.tokens);
 });
 
 module.exports = router;
