@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 //Used for authentication
 app.use('/auth', authConfig);
 
-app.use(express.json());
+//app.use(express.json());
 app.use('/api', metadataRoutes);
 
 // Start the server

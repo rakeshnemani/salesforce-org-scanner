@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/analyze/customizations', async (req, res) => {
     if (!req.session.tokens) {
-        return res.status(403).json({ error: 'In Metadata Rounte. Not authenticated.' });
+        return res.status(403).json({ error: 'In Metadata Route. Not authenticated.' });
     }
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Cache-Control', 'no-cache');
