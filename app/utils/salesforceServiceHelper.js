@@ -170,4 +170,5 @@ const analyzeApex = (fileContent) => {
     return { analysisIssues, analysisFieldUpdates };
 };
 
-module.exports = { checkHardcodedIds, checkSOQLInLoops, checkDMLInLoops, extractFieldUpdatesFromApex, analyzeApex };
+//module.exports = { checkHardcodedIds, checkSOQLInLoops, checkDMLInLoops, extractFieldUpdatesFromApex, analyzeApex };
+export { checkHardcodedIds, checkSOQLInLoops, checkDMLInLoops, extractFieldUpdatesFromApex, analyzeApex };

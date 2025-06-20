@@ -1,4 +1,5 @@
-const { analyzeApex } = require("../utils/salesforceServiceHelper");
+//const { analyzeApex } = require("../utils/salesforceServiceHelper");
+import { analyzeApex } from "../utils/salesforceServiceHelper.js";
 
 //Method to validate apex classes
 const validateApexTriggers = async (responseData, sendUpdate, apexTriggers) => {
@@ -33,4 +34,5 @@ const validateApexTriggers = async (responseData, sendUpdate, apexTriggers) => {
     return { issuesInApexTriggers, fieldUpdatesInApexTriggers };
 }
 
-module.exports = { validateApexTriggers };
+//module.exports = { validateApexTriggers };
+export default validateApexTriggers;

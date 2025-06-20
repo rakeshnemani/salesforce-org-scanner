@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "adm-zip": "^0.5.16",
-    "axios": "^1.9.0",
+    "axios": "^1.10.0",
     "connect-redis": "^9.0.0",
     "dotenv": "^16.5.0",
     "eb": "^0.0.1",

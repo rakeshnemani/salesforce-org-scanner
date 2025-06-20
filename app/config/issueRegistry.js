@@ -1,4 +1,4 @@
-module.exports = {
+const issueRegistry = {
     //flow issues
     "Issue-1001": { priority: "High", category: "Flow Issue", description: "Flow has no entry condition." },
     "Issue-1002": { priority: "High", category: "Flow Issue", description: "Updating the Triggering Record in After Save Flow." },
@@ -18,3 +18,5 @@ module.exports = {
     "Issue-3006": { priority: "Low", category: "Apex Test Class Issue", description: "Test.stopTest() is missing in test method." },
     "Issue-3007": { priority: "Medium", category: "Apex Test Class Issue", description: "Assert function is missing in test method." }
 };
+
+export default issueRegistry;

@@ -1,7 +1,7 @@
-const axios = require("axios");
-const fs = require("fs");
-const { parseStringPromise } = require("xml2js");
-const AdmZip = require("adm-zip");
+import axios from "axios";
+import fs from "fs";
+import { parseStringPromise } from "xml2js";
+import AdmZip from "adm-zip";
 
 // Load tokens
 //const tokens = JSON.parse(fs.readFileSync("tokens.json", "utf-8"));
@@ -202,4 +202,5 @@ const insertScannerResults = async (scannerResultsCompositePayload) => {
 };
 
 
-module.exports = { querySalesforce, retrieveMetadata, insertScannerResults };
+//module.exports = { querySalesforce, retrieveMetadata, insertScannerResults };
+export { querySalesforce, retrieveMetadata, insertScannerResults };

@@ -1,4 +1,5 @@
-const { parseStringPromise } = require("xml2js");
+//const { parseStringPromise } = require("xml2js");
+import { parseStringPromise } from "xml2js";
 
 const extractFieldUpdatesFromFlows = async (responseData, sendUpdate, allFlows) => {
     const fieldUpdatesInFlows = [];
@@ -109,4 +110,5 @@ const analyzeFlows = async (responseData, sendUpdate, allFlows) => {
     return { issuesInFlows, fieldUpdatesInFlows };
 }
 
-module.exports = { analyzeFlows };
+//module.exports = { analyzeFlows };
+export default analyzeFlows;

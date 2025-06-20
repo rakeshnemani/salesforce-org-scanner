@@ -1,4 +1,4 @@
-const { querySalesforce, retrieveMetadata, insertScannerResults } = require("../utils/salesforceAPI");
+/*const { querySalesforce, retrieveMetadata, insertScannerResults } = require("../utils/salesforceAPI");
 //const { retrieveMetadata } = require("../utils/salesforceAPI");
 const { generateIssuePdf } = require("../utils/pdfGenerator");
 
@@ -8,8 +8,19 @@ const { validateTestClasses } = require("./apexTestClassAnalysisService");
 
 const { analyzeFlows } = require("./flowAnalysisService");
 
-const issueRegistry = require("../config/issueRegistry");
+const issueRegistry = require("../config/issueRegistry");*/
 //const { getFieldUpdatesFromApexClasses } = require("../utils/apexClassAnalysisService");
+
+import { querySalesforce, retrieveMetadata, insertScannerResults } from "../utils/salesforceAPI.js";
+//import { retrieveMetadata } from "../utils/salesforceAPI.js";
+import generateIssuePdf from "../utils/pdfGenerator.js";
+
+import validateApexTriggers from "./apexTriggerAnalysisService.js";
+import validateApexClasses from "./apexClassAnalysisService.js";
+import validateTestClasses from "./apexTestClassAnalysisService.js";
+
+import analyzeFlows from "./flowAnalysisService.js";
+import issueRegistry from "../config/issueRegistry.js";
 
 // Fetch Flows & Process Builders
 const getMetadataComponentDependency = async () => {
@@ -188,4 +199,5 @@ const transformFieldUpdates = (allFieldUpdates) => {
   return filteredResult;
 }
 
-module.exports = { getSalesforceMetadata };
+//module.exports = { getSalesforceMetadata };
+export default getSalesforceMetadata;

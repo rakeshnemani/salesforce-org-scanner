@@ -1,6 +1,9 @@
-const express = require('express');
-const { getSalesforceMetadata } = require('../services/salesforceService');
-const { analyzeFieldUpdatesWithChatGPT } = require('../services/chatgptService');
+//const express = require('express');
+import express from "express";
+//const { getSalesforceMetadata } = require('../services/salesforceService');
+import getSalesforceMetadata from '../services/salesforceService.js';
+//const { analyzeFieldUpdatesWithChatGPT } = require('../services/chatgptService');
+import analyzeFieldUpdatesWithChatGPT from '../services/chatgptService.js';
 
 const router = express.Router();
 
@@ -28,4 +31,5 @@ router.get('/analyze/customizations', async (req, res) => {
     }
 });
 
-module.exports = router;
+//module.exports = router;
+export default router;

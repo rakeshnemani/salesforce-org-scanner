@@ -1,8 +1,8 @@
 // pdfGenerator.js
-const puppeteer = require('puppeteer');
-const fs = require('fs');
-const handlebars = require('handlebars');
-const path = require('path');
+import puppeteer from "puppeteer";
+import fs from "fs";
+import handlebars from "handlebars";
+import path from "path";
 
 function getTimestamp() {
     const now = new Date();
@@ -30,4 +30,5 @@ async function generateIssuePdf(issues, fieldUpdates, filename = `OrgAssessment_
     console.log(`PDF generated at ${filename}`);
 }
 
-module.exports = { generateIssuePdf };
+//module.exports = { generateIssuePdf };
+export default generateIssuePdf;

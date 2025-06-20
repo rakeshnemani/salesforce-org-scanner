@@ -1,4 +1,5 @@
-const { checkHardcodedIds, checkSOQLInLoops, checkDMLInLoops } = require("../utils/salesforceServiceHelper");
+//const { checkHardcodedIds, checkSOQLInLoops, checkDMLInLoops } = require("../utils/salesforceServiceHelper");
+import { checkHardcodedIds, checkSOQLInLoops, checkDMLInLoops } from "../utils/salesforceServiceHelper.js";
 
 // Method to check if the class has @isTest annotation
 const checkIsTestAnnotation = (testClassContent) => {
@@ -102,4 +103,5 @@ const validateTestClasses = async (responseData, sendUpdate, testClasses) => {
     return issuesInTestClasses;
 }
 
-module.exports = { validateTestClasses };
+//module.exports = { validateTestClasses };
+export default validateTestClasses;

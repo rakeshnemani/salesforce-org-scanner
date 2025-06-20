@@ -1,5 +1,7 @@
-const { OpenAI } = require('openai');
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+//const { OpenAI } = require('openai');
+import OpenAI from 'openai';
+const key = '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';
+const openai = new OpenAI({ apiKey: key });
 
 async function analyzeFieldUpdatesWithChatGPT(responseData, sendUpdate, fieldUpdates) {
   const response = await openai.chat.completions.create({
@@ -17,4 +19,5 @@ async function analyzeFieldUpdatesWithChatGPT(responseData, sendUpdate, fieldUpd
   return chatGPTAnalysis;
 }
 
-module.exports = { analyzeFieldUpdatesWithChatGPT };
+//module.exports = { analyzeFieldUpdatesWithChatGPT };
+export default analyzeFieldUpdatesWithChatGPT;
