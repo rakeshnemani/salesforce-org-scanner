@@ -6,7 +6,7 @@ import connectRedis from "connect-redis";
 import { createClient } from "redis";
 
 import metadataRoutes from './app/routes/metadataRoutes.js';
-import authConfig from './app/config/auth.js';
+import { router as authConfig } from './app/config/auth.js';
 
 dotenv.config();
 
