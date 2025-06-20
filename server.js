@@ -1,12 +1,23 @@
-require("dotenv").config();
+/*require("dotenv").config();
 const express = require("express");
 const axios = require("axios");
 const expressSession = require("express-session");
-//const RedisStore = require("connect-redis");
-//const createClient = require("redis");
+const RedisStore = require("connect-redis");
+const createClient = require("redis");
 
 const metadataRoutes = require('./app/routes/metadataRoutes');
-const authConfig = require('./app/config/auth');
+const authConfig = require('./app/config/auth');*/
+
+import dotenv from "dotenv";
+import express from "express";
+import axios from "axios";
+import session from "express-session";
+import connectRedis from "connect-redis";
+import { createClient } from "redis";
+
+import metadataRoutes from './app/routes/metadataRoutes.js';
+import authConfig from './app/config/auth.js';
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,21 +26,21 @@ const PORT = process.env.PORT || 3000;
 app.set("trust proxy", 1);
 
 // Create a Redis client with your Redis Cloud URL
-//const redisClient = createClient({ url: process.env.REDIS_URL });
-
-//redisClient.on("error", (err) => console.error("Redis Client Error!", err));
-//await redisClient.connect();
+const RedisStore = connectRedis(session);
+const redisClient = createClient({ url: process.env.REDIS_URL });
+redisClient.on("error", (err) => console.error("Redis Client Error!", err));
+await redisClient.connect();
 
 // Sessions (keep this SECRET and use a strong password!)
 app.use(
   expressSession({ 
-    //secret: process.env.SESSION_SECRET || "supersecret",
+    secret: process.env.SESSION_SECRET || "supersecret",
     resave: false,
     saveUninitialized: false,
     cookie: { 
       secure: true // <- Heroku is HTTPS
     },
-    //store: new RedisStore({ client: redisClient })
+    store: new RedisStore({ client: redisClient })
   })
 );
 
