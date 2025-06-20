@@ -8,6 +8,9 @@ import analyzeFieldUpdatesWithChatGPT from '../services/chatgptService.js';
 const router = express.Router();
 
 router.get('/analyze/customizations', async (req, res) => {
+    console.log("In Metadata Route");
+    console.log("Session Tokens:", req.session.tokens);
+    console.log("Session Tokens:", JSON.stringify(req, null, 2));
     if (!req.session.tokens) {
         return res.status(403).json({ error: 'In Metadata Route. Not authenticated.' });
     }
