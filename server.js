@@ -1,13 +1,3 @@
-/*require("dotenv").config();
-const express = require("express");
-const axios = require("axios");
-const expressSession = require("express-session");
-const RedisStore = require("connect-redis");
-const createClient = require("redis");
-
-const metadataRoutes = require('./app/routes/metadataRoutes');
-const authConfig = require('./app/config/auth');*/
-
 import dotenv from "dotenv";
 import express from "express";
 import axios from "axios";
@@ -17,53 +7,59 @@ import { createClient } from "redis";
 
 import metadataRoutes from './app/routes/metadataRoutes.js';
 import authConfig from './app/config/auth.js';
+
 dotenv.config();
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+const startServer = async () => {
+  const app = express();
+  const PORT = process.env.PORT || 3000;
 
-// Enable trusting Heroku's reverse proxy
-app.set("trust proxy", 1);
+  // Enable trusting Heroku's reverse proxy
+  app.set("trust proxy", 1);
 
-// Create a Redis client with your Redis Cloud URL
-const RedisStore = connectRedis(session);
-const redisClient = createClient({ url: process.env.REDIS_URL });
-redisClient.on("error", (err) => console.error("Redis Client Error!", err));
-await redisClient.connect();
+  // Create Redis store and client
+  const RedisStore = connectRedis(session);
+  const redisClient = createClient({ url: process.env.REDIS_URL });
+  redisClient.on("error", (err) => console.error("❌ Redis Client Error!", err));
+  await redisClient.connect();
+  console.log("✅ Redis connected");
 
-// Sessions (keep this SECRET and use a strong password!)
-app.use(
-  expressSession({ 
+  app.use(session({
+    store: new RedisStore({ client: redisClient }),
     secret: process.env.SESSION_SECRET || "supersecret",
     resave: false,
     saveUninitialized: false,
-    cookie: { 
-      secure: true // <- Heroku is HTTPS
-    },
-    store: new RedisStore({ client: redisClient })
-  })
-);
+    cookie: {
+      secure: process.env.NODE_ENV === "production",
+      httpOnly: true,
+      sameSite: "lax"
+    }
+  }));
 
-app.use((req, res, next) => {
-  if (req.headers['x-forwarded-proto'] !== 'https') {
-    return res.redirect('https://' + req.headers.host + req.url);
-  }
-  next();
-});
+  // Force HTTPS
+  app.use((req, res, next) => {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+      return res.redirect('https://' + req.headers.host + req.url);
+    }
+    next();
+  });
 
-// check health of ec2
-app.get('/', (req, res) => {
-  res.status(200).send('OK'); // or whatever health response you want
-});
+  // Body parser
+  app.use(express.json());
 
+  // Health check
+  app.get('/', (req, res) => {
+    res.status(200).send('OK');
+  });
 
-//Used for authentication
-app.use('/auth', authConfig);
+  // Routes
+  app.use('/auth', authConfig);
+  app.use('/api', metadataRoutes);
 
-//app.use(express.json());
-app.use('/api', metadataRoutes);
+  // Start the server
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running at http://localhost:${PORT}`);
+  });
+};
 
-// Start the server
-app.listen(process.env.PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
+startServer();
