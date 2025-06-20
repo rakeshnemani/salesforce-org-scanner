@@ -1,12 +1,12 @@
-import dotenv from "dotenv";
-import express from "express";
-import axios from "axios";
-import session from "express-session";
-import connectRedis from "connect-redis";
-import { createClient } from "redis";
+require("dotenv").config();
+const express = require("express");
+const axios = require("axios");
+const expressSession = require("express-session");
+const RedisStore = require("connect-redis");
+const createClient = require("redis");
 
-import metadataRoutes from './app/routes/metadataRoutes.js';
-import { router as authConfig } from './app/config/auth.js';
+const metadataRoutes = require('./app/routes/metadataRoutes');
+const authConfig = require('./app/config/auth');
 
 dotenv.config();
 
